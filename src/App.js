@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {Route, Switch} from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+import './stylesheets/APP.scss'
+import Menu from './components/Menu';
+import Whoops404 from './components/Whoops404';
+import NewColor from './containers/NewColor';
+import Colors from './containers/Colors';
+import Color from './containers/Color';
+
+const App = () =>
+    <Switch>
+        <Route exact path="/:id" component={Color} />
+        <Route path="/"
+            component={() => (
+                <div className="app">
+                    <Route component={Menu} />
+                    <NewColor />
+                    <Switch>
+                        <Route exact path="/" component={Colors} />
+                        <Route path="/sort/:sort" component={Colors} />
+                        <Route component={Whoops404} />
+                    </Switch>
+                </div>
+            )} />
+    </Switch>
 
 export default App;
